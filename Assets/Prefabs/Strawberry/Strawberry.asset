@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfab58729623c043b475e86d903c1c4, type: 3}
+  m_Name: Strawberry
+  m_EditorClassIdentifier: 
+  name: Strawberry
+  prefab: {fileID: 2176414956646435275, guid: d2f3bbf058d552b4e93b8f8f8995fcd2, type: 3}
+  sprite: {fileID: -156020438, guid: 43b3b5fc63458334ab08d35f0f3014f0, type: 3}
+  amount: 1
+  maxStackable: 10
+  finishedItem: {fileID: 0}
+  timeFirstStage: 0
+  spriteFirstStage: {fileID: 0}
+  timeSecondtStage: 0
+  spriteSecondtStage: {fileID: 0}
+  timeThirdStage: 0
+  spriteThirdStage: {fileID: 0}
+  timeFourthStage: 0
+  spriteFourthStage: {fileID: 0}
+  minFinishedItem: 0
+  maxFinishedItem: 0

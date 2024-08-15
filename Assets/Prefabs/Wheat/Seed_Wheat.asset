@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c3a7c393514bc4dac3e0a53fd4a539, type: 3}
+  m_Name: Seed_Wheat
+  m_EditorClassIdentifier: 
+  name: SeedWheat
+  prefab: {fileID: 2694774752718790629, guid: 8991aaaa27bb20a40be1d6cbcc4171c8, type: 3}
+  sprite: {fileID: 21300000, guid: a184f9c7646766b438c4da92f36a0656, type: 2}
+  amount: 1
+  maxStackable: 1
+  finishedItem: {fileID: 11400000, guid: e4f724c62d7631849a6a658de97dc081, type: 2}
+  timeFirstStage: 2
+  spriteFirstStage: {fileID: 21300000, guid: 41b0bdc2e782d69489ce75e1b3a9dec3, type: 2}
+  timeSecondtStage: 2
+  spriteSecondtStage: {fileID: 21300000, guid: 349cbd1137008e040a6c3ddce7c9c9aa, type: 2}
+  timeThirdStage: 2
+  spriteThirdStage: {fileID: 21300000, guid: d226d25bf0c342748b77d174302cb69b, type: 2}
+  timeFourthStage: 2
+  spriteFourthStage: {fileID: 21300000, guid: f0855f7b4d93f8e42af608e95b16bb35, type: 2}
+  minFinishedItem: 3
+  maxFinishedItem: 5
