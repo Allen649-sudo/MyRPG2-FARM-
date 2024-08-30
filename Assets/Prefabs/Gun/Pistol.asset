@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6994a53ec9478914dbe7bc93e890a331, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  name: Pistol
+  prefab: {fileID: 6351680936862629329, guid: 2438199b79630f44681ccb77a6a0f740, type: 3}
+  sprite: {fileID: 323032242, guid: db497e5670178b34da753c966da755ca, type: 3}
+  amount: 1
+  maxStackable: 1
+  price: 210
+  suitableBullet: {fileID: 11400000, guid: 771aa08410369bb40a7f95d20a9a2407, type: 2}
+  shotCooldown: 0.55
