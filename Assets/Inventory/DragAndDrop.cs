@@ -38,7 +38,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        transform.SetParent(grandma.parent, true);
+        transform.SetParent(grandma.parent.parent, true);
         rectTransform.SetAsLastSibling();
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = .6f;

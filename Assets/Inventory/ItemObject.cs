@@ -16,6 +16,7 @@ public class ItemObject : MonoBehaviour
 
     void Start()
     {
+        scriptableObjectSO.prefab = gameObject;
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
     }
@@ -30,7 +31,7 @@ public class ItemObject : MonoBehaviour
         playerReward = true;
     }
 
-    public void Activate(Transform transformPos = null)
+    public void Activate(Transform transformPos = null, Quaternion rotation = default)
     {
         if (transformPos == null)
         {
@@ -41,40 +42,25 @@ public class ItemObject : MonoBehaviour
             gameObject.SetActive(true);
             distanceFromPlayer = new Vector3(1.2f, 0f, 0f);
             transform.position = transformPos.position + distanceFromPlayer; 
+            
         }
         else
         {
+
             gameObject.SetActive(true);
             PosTransferredItem(transformPos);
+            if (rotation != null)
+            {
+                transform.rotation = rotation;
+            }
         }
 
     }
 
     void PosTransferredItem(Transform transformPos)
     {
-
         Vector3 distanceFromNotPlayer = new Vector3(1.2f, 0f, 0f);
         transform.position = transformPos.position + transformPos.up * -1;
     }
 
-    /*public Vector3 GetTransformSpawnItem()
-    {
-        Transform transformPos = player.transform;
-        distanceFromPlayer = new Vector3(1.2f, 0f, 0f);
-        Vector3 transform = transformPos.position + distanceFromPlayer;
-        return transform;
-    }
-
-    public void InstantiateItem(ScriptableObjectSO scriptableObjectSO)
-    {
-        GameObject newItem = Instantiate(scriptableObjectSO.prefab, GetTransformSpawnItem(), Quaternion.identity);
-    }*/
-
-    /*public void AnimationReward()
-    {
-        if (animator != null)
-        {
-            animator.SetBool("Reward", true);
-        }
-    }*/
 }

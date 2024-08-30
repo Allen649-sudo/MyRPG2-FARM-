@@ -14,17 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Apple
   prefab: {fileID: 7847703398353656198, guid: bf32a0ec222a0dc4794c27ff80004c22, type: 3}
-  sprite: {fileID: -187045962, guid: 43b3b5fc63458334ab08d35f0f3014f0, type: 3}
+  sprite: {fileID: -187045962, guid: 4c50ae3115286d54f93c43f5ab1c1852, type: 3}
   amount: 1
-  maxStackable: 4
-  finishedItem: {fileID: 0}
-  timeFirstStage: 0
-  spriteFirstStage: {fileID: 0}
-  timeSecondtStage: 0
-  spriteSecondtStage: {fileID: 0}
-  timeThirdStage: 0
-  spriteThirdStage: {fileID: 0}
-  timeFourthStage: 0
-  spriteFourthStage: {fileID: 0}
-  minFinishedItem: 0
-  maxFinishedItem: 0
+  maxStackable: 64
+  price: 15

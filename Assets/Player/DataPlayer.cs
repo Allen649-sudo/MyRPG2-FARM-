@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class DataPlayer : MonoBehaviour
 {
-    private bool haveQuest;
-
+    public int amountMoney;
     public int levelPlayer = 1;
-    int experience;
+    public int experience;
 
-    public bool HaveQuest
-    {
-        get { return haveQuest; }
-        set { haveQuest = value; }
-    }
 }

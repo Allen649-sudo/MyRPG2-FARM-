@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6477358891554155470}
   - component: {fileID: -8040643967854655501}
   - component: {fileID: -578881252131070282}
+  - component: {fileID: -8927303323646887736}
   m_Layer: 0
   m_Name: SeedPackagingTomato
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8283936879098076771}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1942167, y: -3.5245826, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.533379, y: 3.533379, z: 3.533379}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -54,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -147,3 +148,16 @@ MonoBehaviour:
   player: {fileID: 1529716574337419759, guid: ba4b75ac13e7620429317a68823d5443, type: 3}
   spawnDistance: 2
   animator: {fileID: 0}
+--- !u!114 &-8927303323646887736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8283936879098076771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd5d7c2a19956c4a9bbe33c5bd858dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedDispenseCountItem: -1

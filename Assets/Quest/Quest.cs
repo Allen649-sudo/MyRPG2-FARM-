@@ -12,12 +12,10 @@ public class Quest : MonoBehaviour
     private QuickslotInventory quickslotInventoryScript;
 
     public static Action<Quest> OnAudioClipSource;
-    public static Action OnNullifySlot;
-    public static Action<int, ScriptableObjectSO, Transform> OnGiveReward;
+    public static Action<RewardQuest, Transform> OnGiveReward;
 
     [SerializeField] private AnimationWindowQuest animationWindowQuest;
     private AnimationWindowQuest animationWindowQuestScript;
-    [SerializeField] private DataPlayer dataPlayer;
 
     public GameObject temporaryWindowQuest;
 
@@ -37,7 +35,8 @@ public class Quest : MonoBehaviour
             if (quickslotInventoryScript.GetActiveSlot().scriptableObjectSO.name == parametersQuest.scriptableObjectSO.name && quickslotInventoryScript.GetActiveSlot().count < parametersQuest.amountScriptableObjectSO)
             {
                 itemStorage += quickslotInventoryScript.GetActiveSlot().count;
-                OnNullifySlot?.Invoke();
+                QuickslotInventory.Instance.OnNullifySlot();
+
 
             }
             else if (quickslotInventoryScript.GetActiveSlot().scriptableObjectSO.name == parametersQuest.scriptableObjectSO.name && quickslotInventoryScript.GetActiveSlot().count == 0)
@@ -49,7 +48,6 @@ public class Quest : MonoBehaviour
                 TriggerEventCompleteQuest();
                 ResetStates();
                 temporaryWindowQuest.GetComponent<Data_QuestWindow>().QuestComplete();
-
                 if (quickslotInventoryScript.GetActiveSlot().count - parametersQuest.amountScriptableObjectSO > 0 && itemStorage == 0)
                 {
                     int newCount = quickslotInventoryScript.GetActiveSlot().count - parametersQuest.amountScriptableObjectSO;
@@ -64,7 +62,7 @@ public class Quest : MonoBehaviour
                 }
                 else
                 {
-                    OnNullifySlot?.Invoke();
+                    QuickslotInventory.Instance.OnNullifySlot();
                 }
                 itemStorage = 0;
             }
@@ -75,7 +73,7 @@ public class Quest : MonoBehaviour
     void TriggerEventCompleteQuest()
     {
         OnAudioClipSource?.Invoke(this);
-        OnGiveReward?.Invoke(parametersQuest.amountRewardScriptableObjectSO, parametersQuest.scriptableObjectSOReward, this.gameObject.transform);
+        OnGiveReward?.Invoke(parametersQuest.rewardQuest, this.gameObject.transform);
     }
 
     void ResetStates()

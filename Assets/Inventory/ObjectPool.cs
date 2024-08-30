@@ -6,21 +6,20 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance { get; private set; }
 
-
     public List<ItemObject> listItemObject = new List<ItemObject>();
 
     void Start()
     {
         Instance = this;
-
     }
 
     public void ItemObjectAddList(ItemObject itemObject)
     {
         listItemObject.Add(itemObject);
+
     }
 
-    public void ActivateItem(int count, ScriptableObjectSO scriptableObjectSO, Transform transform = null)
+    public void ActivateItem(int count, ScriptableObjectSO scriptableObjectSO, Transform transform = null, Quaternion rotation = default)
     {
         for (int i = 0; i < count; i++)
         {
@@ -65,13 +64,21 @@ public class ObjectPool : MonoBehaviour
 
                         if (transform != null)
                         {
-                            newItem.Activate(transform);
+
+                            if (rotation != null)
+                            {
+
+                                newItem.Activate(transform, rotation);
+                            }
+                            else
+                            {
+                                newItem.Activate(transform);
+                            }
                         }
                         else
                         {
                             newItem.Activate();
                         }
-
                         ItemObjectAddList(newItem);
                         listItemObject.Remove(newItem);
 
