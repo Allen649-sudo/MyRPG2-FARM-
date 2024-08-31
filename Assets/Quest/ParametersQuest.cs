@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[CreateAssetMenu()]
+[CreateAssetMenu(menuName = "Quest/ParametersQuest")]
+
 public class ParametersQuest : ScriptableObject
 {
     public string name;
@@ -23,8 +24,7 @@ public class ParametersQuest : ScriptableObject
     public Sprite conditions;
     [Space(1)]
     [Header("REWARD")]
-    public ScriptableObjectSO scriptableObjectSOReward;
-    public int amountRewardScriptableObjectSO;
+    public RewardQuest rewardQuest;
     public Sprite reward;
 
 }

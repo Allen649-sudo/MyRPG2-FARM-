@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
+
 
 public class Collision_With_Item : MonoBehaviour
 {
+    public GameObject firePlayer;
+    FirePlayer firePlayerScript;
+
     public InventoryPanel inventoryPanel;
     public GameObject objectQuest;
     QuestManager questManager;
@@ -17,10 +22,21 @@ public class Collision_With_Item : MonoBehaviour
 
     private Collider2D currentCollider;
     public bool interactOutsideCollider { get; private set; }
-    // Start is called before the first frame update
+
+    public static Action OnPlayerInteract;
+    public static Action OnOpenShop;
+
+   // Start is called before the first frame update
     void Start()
     {
+        
         questManager = objectQuest.GetComponent<QuestManager>();
+        
+        if (firePlayerScript != null)
+        {
+            firePlayerScript = firePlayer.GetComponent<FirePlayer>();
+
+        }
     }
 
     void Awake()
@@ -29,40 +45,38 @@ public class Collision_With_Item : MonoBehaviour
         playerControls.Player.Enable();
     }
 
-    /*void OnTriggerStay2D(Collider2D itemCollider)
-    {
-        questStatus = dataPlayer.HaveQuest;
-        quest = itemCollider.GetComponent<Quest>();
-
-        interactOutsideCollider = true;
-
-        if (itemCollider.GetComponent<Quest>() != null)
-        {
-            if (questStatus == false && itemCollider.GetComponent<Quest>().parametersQuest.activeQuest == true)
-            {
-                questManager.ActiveQuest(itemCollider);
-            }
-            playerControls.Player.QuestInteract.performed += QuestInteract_performed;
-        }
-        if (itemCollider.GetComponent<ItemObject>())
-        {
-            inventoryPanel.AddItem(itemCollider.GetComponent<ItemObject>().scriptableObjectSO, itemCollider.GetComponent<ItemObject>(), itemCollider.gameObject.GetComponent<Collider2D>());
-        }
-    }*/
-
+    
     void OnTriggerStay2D(Collider2D itemCollider)
     {
-        questStatus = dataPlayer.HaveQuest;
         quest = itemCollider.GetComponent<Quest>();
 
         interactOutsideCollider = true;
 
         playerControls.Player.QuestInteract.performed += QuestInteract_performed;
 
+        
         if (itemCollider.GetComponent<ItemObject>())
         {
             inventoryPanel.AddItem(itemCollider.GetComponent<ItemObject>().scriptableObjectSO, itemCollider.GetComponent<ItemObject>(), itemCollider.gameObject.GetComponent<Collider2D>());
+            itemCollider.GetComponent<ItemObject>().Deactivate();
+            if (itemCollider.GetComponent<BulletMovement>())
+            {
+                BulletPool.Instance.BulletAddList(itemCollider.gameObject);
+            }
+            else
+            {
+                ObjectPool.Instance.ItemObjectAddList(itemCollider.GetComponent<ItemObject>());
+
+            }
         }
+        
+
+    }
+
+    void Update()
+    {
+        playerControls.Player.Close.performed += OpenShop;
+
     }
 
     void OnTriggerEnter2D(Collider2D itemCollider)
@@ -70,10 +84,12 @@ public class Collision_With_Item : MonoBehaviour
         if (itemCollider.GetComponent<Quest>() != null)
         {
             currentCollider = itemCollider;
-
-            if (itemCollider.GetComponent<Quest>().parametersQuest.activeQuest == true && itemCollider.GetComponent<Quest>().parametersQuest.playerAcceptQuest == false)
+            if (questManager != null)
             {
-                questManager.ActiveQuest(itemCollider);
+                if (itemCollider.GetComponent<Quest>().parametersQuest.activeQuest == true && itemCollider.GetComponent<Quest>().parametersQuest.playerAcceptQuest == false)
+                {
+                    questManager.ActiveQuest(itemCollider);
+                }
             }
         }
     }
@@ -82,48 +98,42 @@ public class Collision_With_Item : MonoBehaviour
     {
         quest = itemCollider.GetComponent<Quest>();
 
-        if (itemCollider.GetComponent<Quest>() != null)
+        if (itemCollider.GetComponent<Quest>() != null && questManager != null)
         {
             if (itemCollider.GetComponent<Quest>().parametersQuest.playerAcceptQuest == false)
             {
                 questManager.InactiveQuest(itemCollider.GetComponent<Quest>().temporaryWindowQuest);
             }
         }
+
+        CloseShop();
         interactOutsideCollider = false;
     }
 
     void QuestInteract_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (quest.parametersQuest.activeQuest == true && quest.parametersQuest.playerAcceptQuest == true)
+        OnPlayerInteract?.Invoke();
+
+        // Проверка на наличие quest
+        if (quest != null && quest.parametersQuest != null)
         {
-            if (interactOutsideCollider)
+            if (quest.parametersQuest.activeQuest == true && quest.parametersQuest.playerAcceptQuest == true)
             {
-                quest.OnQuestInteract_CheckCompleteQuest();
+                if (interactOutsideCollider)
+                {
+                    quest.OnQuestInteract_CheckCompleteQuest();
+                }
             }
         }
     }
 
-    /*void OnTriggerExit2D(Collider2D itemCollider)
+    void OpenShop(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (itemCollider.GetComponent<Quest>() != null)
-        {
-            if (questStatus == false)
-            {
+        OnOpenShop?.Invoke();
+    }
 
-                 questManager.InactiveQuest();
-            }
-        }
-        interactOutsideCollider = false;
-    }*/
-
-    /*void QuestInteract_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    void CloseShop()
     {
-        if (quest.parametersQuest.activeQuest == true && questStatus)
-        {
-            if (interactOutsideCollider)
-            {
-                OnQuestInteract?.Invoke();
-            }
-        }
-    }*/
+        OnOpenShop?.Invoke();
+    }
 }

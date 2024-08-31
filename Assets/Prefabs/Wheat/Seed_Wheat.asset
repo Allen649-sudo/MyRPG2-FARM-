@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Seed_Wheat
   m_EditorClassIdentifier: 
   name: SeedWheat
-  prefab: {fileID: 2694774752718790629, guid: 8991aaaa27bb20a40be1d6cbcc4171c8, type: 3}
+  prefab: {fileID: 0}
   sprite: {fileID: 21300000, guid: a184f9c7646766b438c4da92f36a0656, type: 2}
   amount: 1
   maxStackable: 1
+  price: 35
   finishedItem: {fileID: 11400000, guid: e4f724c62d7631849a6a658de97dc081, type: 2}
   timeFirstStage: 2
   spriteFirstStage: {fileID: 21300000, guid: 41b0bdc2e782d69489ce75e1b3a9dec3, type: 2}
@@ -28,3 +29,4 @@ MonoBehaviour:
   spriteFourthStage: {fileID: 21300000, guid: f0855f7b4d93f8e42af608e95b16bb35, type: 2}
   minFinishedItem: 3
   maxFinishedItem: 5
+  seedDispenseCount: 4

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Seed_Tomato
   m_EditorClassIdentifier: 
   name: SeedTomato
-  prefab: {fileID: 8283936879098076771, guid: fb9bfc7f22bb39f44a422c879279131b, type: 3}
+  prefab: {fileID: 0}
   sprite: {fileID: 21300000, guid: 6ec80a98082e85542a88b965fd47ca69, type: 2}
   amount: 1
   maxStackable: 1
+  price: 50
   finishedItem: {fileID: 11400000, guid: 1811c8703b05a8f458292feeb49566bb, type: 2}
   timeFirstStage: 2
   spriteFirstStage: {fileID: 21300000, guid: 777dc7e2d475449438163016a3ed9789, type: 2}
@@ -28,3 +29,4 @@ MonoBehaviour:
   spriteFourthStage: {fileID: 21300000, guid: 2ef41e39bdf4c244b83bd17c1660deda, type: 2}
   minFinishedItem: 1
   maxFinishedItem: 2
+  seedDispenseCount: 4

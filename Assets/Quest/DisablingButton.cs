@@ -24,7 +24,6 @@ public class DisablingButton : MonoBehaviour
         acceptButton.gameObject.SetActive(false); 
         closeButton.gameObject.SetActive(true);
         data_QuestWindow.temporarySelectedParametersQuest.playerAcceptQuest = true;
-        data_QuestWindow.OnAcceptQuest();
     }
 
     public void DropQuest()
@@ -36,6 +35,12 @@ public class DisablingButton : MonoBehaviour
         data_QuestWindow.FalsePlayerAcceptQuest();
         data_QuestWindow.OnDropQuest();
 
+    }
+
+    public void SwitchingButton()
+    {
+        acceptButton.gameObject.SetActive(true);
+        closeButton.gameObject.SetActive(false);
     }
 
 }

@@ -13,18 +13,8 @@ MonoBehaviour:
   m_Name: Strawberry
   m_EditorClassIdentifier: 
   name: Strawberry
-  prefab: {fileID: 2176414956646435275, guid: d2f3bbf058d552b4e93b8f8f8995fcd2, type: 3}
-  sprite: {fileID: -156020438, guid: 43b3b5fc63458334ab08d35f0f3014f0, type: 3}
+  prefab: {fileID: 0}
+  sprite: {fileID: -156020438, guid: 4c50ae3115286d54f93c43f5ab1c1852, type: 3}
   amount: 1
   maxStackable: 10
-  finishedItem: {fileID: 0}
-  timeFirstStage: 0
-  spriteFirstStage: {fileID: 0}
-  timeSecondtStage: 0
-  spriteSecondtStage: {fileID: 0}
-  timeThirdStage: 0
-  spriteThirdStage: {fileID: 0}
-  timeFourthStage: 0
-  spriteFourthStage: {fileID: 0}
-  minFinishedItem: 0
-  maxFinishedItem: 0
+  price: 5

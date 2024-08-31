@@ -17,40 +17,6 @@ public class QuestManager : MonoBehaviour
     private GameObject selected;
 
 
-    /*void Start()
-    {
-
-        player = GameObject.Find("Player");
-        dataPlayer = player.GetComponent<DataPlayer>();
-        animationWindowQuest = questWindow.GetComponent<AnimationWindowQuest>();
-        animationWindowQuest.InactiveQuest();
-
-        nameQuest = questWindow.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        description = questWindow.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-        conditions = questWindow.transform.GetChild(2).GetComponent<Image>();
-        reward = questWindow.transform.GetChild(3).GetComponent<Image>();
-    }
-
-    public void ActiveQuest(Collider2D colliderObject)
-    {
-        if (colliderObject.gameObject.GetComponent<Quest>() != null)
-        {
-            animationWindowQuest.ActiveQuest();
-
-            nameQuest.text = colliderObject.gameObject.GetComponent<Quest>().parametersQuest.name;
-            description.text = colliderObject.gameObject.GetComponent<Quest>().parametersQuest.description;
-
-            conditions.sprite = colliderObject.gameObject.GetComponent<Quest>().parametersQuest.conditions;
-            reward.sprite = colliderObject.gameObject.GetComponent<Quest>().parametersQuest.reward;
-        }
-    }
-
-    public void InactiveQuest()
-    {
-        animationWindowQuest.InactiveQuest();
-    }*/
-
     void OnEnable()
     {
         Data_QuestWindow.OnDropQuestAction += ReturnWindowQuestIn_QuestWindowTest;
@@ -92,7 +58,6 @@ public class QuestManager : MonoBehaviour
                     Image conditions = questWindowVar.transform.GetChild(2).GetComponent<Image>();
                     Image reward = questWindowVar.transform.GetChild(3).GetComponent<Image>();
 
-                    // Обновляем текст и спрайты на основе данных из Quest
                     Quest quest = colliderObject.gameObject.GetComponent<Quest>();
                     nameQuest.text = quest.parametersQuest.name;
                     description.text = quest.parametersQuest.description;
@@ -101,7 +66,6 @@ public class QuestManager : MonoBehaviour
                     selected = questWindowVar;
                     AddedQuestWindow(questWindowVar, colliderObject);
 
-                    /*questWindowTest.Remove(questWindowVar);*/
 
                     isFirstInstanceCreated = true;
                     break;
@@ -141,28 +105,26 @@ public class QuestManager : MonoBehaviour
     public void AcceptQuest()
     {
         questWindowTest.Remove(selected);
-        /*foreach (GameObject questWindowVar in questWindowTest)
-        {
-            questWindowTest.Remove(questWindowVar);
-        }*/
+        
     }
 
     public void InactiveQuest(GameObject temporaryWindowQuest)
     {
         foreach (GameObject selectedWindowsQuestVar in questWindowTest)
         {
-            if (selectedWindowsQuestVar.GetComponent<Data_QuestWindow>().temporarySelectedParametersQuest.playerAcceptQuest != null)
+            if (selectedWindowsQuestVar != null)
             {
-                if (selectedWindowsQuestVar.GetComponent<Data_QuestWindow>().temporarySelectedParametersQuest.playerAcceptQuest == false)
+                Data_QuestWindow questWindowData = selectedWindowsQuestVar.GetComponent<Data_QuestWindow>();
+                if (questWindowData != null) 
                 {
-                    selectedWindowsQuestVar.GetComponent<Data_QuestWindow>().InactiveQuest();
-                    selectedWindowsQuest.Remove(selectedWindowsQuestVar);
-
+                    if (questWindowData.temporarySelectedParametersQuest != null) 
+                    {
+                        questWindowData.InactiveQuest();
+                        selectedWindowsQuest.Remove(selectedWindowsQuestVar);
+                    }
                 }
             }
         }
-        /*selectedWindowQuest.GetComponent<AnimationWindowQuest>().InactiveQuest();*/
-        /*animationWindowQuest.InactiveQuest();*/
     }
 
     public void ReturnWindowQuestIn_QuestWindowTest(ParametersQuest sentParametersQuest, GameObject questWindow)
@@ -172,35 +134,19 @@ public class QuestManager : MonoBehaviour
 
     IEnumerator ReturnWindowQuest(ParametersQuest sentParametersQuest, GameObject questWindow)
     {
-        List<GameObject> windowsToRemove = new List<GameObject>();
         if (selectedWindowsQuest.Count > 0)
         {
-            foreach (GameObject selectedWindowsQuestVar in selectedWindowsQuest)
+            for (int i = selectedWindowsQuest.Count - 1; i >= 0; i--)
             {
+                GameObject selectedWindowsQuestVar = selectedWindowsQuest[i];
                 if (sentParametersQuest == selectedWindowsQuestVar.GetComponent<Data_QuestWindow>().selectedParametersQuest)
                 {
                     yield return new WaitForSeconds(0.1f);
                     questWindowTest.Insert(0, selectedWindowsQuestVar);
-                    selectedWindowsQuest.Remove(selectedWindowsQuestVar);
+                    selectedWindowsQuest.RemoveAt(i); // Удаляем по индексу
                 }
-
             }
-        }
-        foreach (GameObject window in windowsToRemove)
-        {
-            selectedWindowsQuest.Remove(window);
         }
     }
 
-
-    /*public void InactiveQuest()
-    {
-        foreach (GameObject selectedWindowQuest in selectedWindowsQuest)
-        {
-            selectedWindowQuest.GetComponent<AnimationWindowQuest>().InactiveQuest();
-            break;
-        }
-            *//*selectedWindowQuest.GetComponent<AnimationWindowQuest>().InactiveQuest();*/
-    /*animationWindowQuest.InactiveQuest();*//*
-}*/
 }

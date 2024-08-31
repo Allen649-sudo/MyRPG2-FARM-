@@ -13,14 +13,12 @@ public class QuickslotInventory : MonoBehaviour
     [SerializeField] private Sprite notSelectedSprite;
     private InventorySlot activeSlot = null;
 
-    void OnEnable()
-    {
-        Quest.OnNullifySlot += Quest_OnNullifySlot;
-    }
+    public static QuickslotInventory Instance;
 
-    void OnDisable()
+
+    void Start()
     {
-        Quest.OnNullifySlot -= Quest_OnNullifySlot;
+        Instance = this;
     }
 
     void Update()
@@ -87,7 +85,7 @@ public class QuickslotInventory : MonoBehaviour
         return activeSlot;
     }
 
-    void Quest_OnNullifySlot()
+    public void OnNullifySlot()
     {
         InventoryPanel.Instance.ResetDragAndDrop(activeSlot.GetDragAndDrop());
     }

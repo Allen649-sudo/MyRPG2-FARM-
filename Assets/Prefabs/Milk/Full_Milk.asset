@@ -15,16 +15,6 @@ MonoBehaviour:
   name: Full Milk
   prefab: {fileID: 4333615883362323331, guid: 6d80d20ef0f0f5b40ab38ba75b4143b4, type: 3}
   sprite: {fileID: 128442382, guid: 116d2bb454e46244f82c4d85846c0239, type: 3}
-  amount: 1
+  amount: 6
   maxStackable: 1
-  finishedItem: {fileID: 0}
-  timeFirstStage: 0
-  spriteFirstStage: {fileID: 0}
-  timeSecondtStage: 0
-  spriteSecondtStage: {fileID: 0}
-  timeThirdStage: 0
-  spriteThirdStage: {fileID: 0}
-  timeFourthStage: 0
-  spriteFourthStage: {fileID: 0}
-  minFinishedItem: 0
-  maxFinishedItem: 0
+  price: 30

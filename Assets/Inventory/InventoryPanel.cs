@@ -27,9 +27,6 @@ public class InventoryPanel : MonoBehaviour
     {
         Instance = this;
 
-        /*mainSlots = gameObject.transform.GetChild(1);
-        quikSlots = gameObject.transform.GetChild(2);*/
-
         for (int i = 0; i < quikSlots.childCount; i++)
         {
             Transform child = quikSlots.transform.GetChild(i);
@@ -79,22 +76,13 @@ public class InventoryPanel : MonoBehaviour
             {
                 slot.scriptableObjectSO = scriptableObjectSO;
                 slot.iconGO.GetComponent<Image>().sprite = scriptableObjectSO.sprite;
-
-                itemObject.Deactivate();
                 slot.count++;
-                ObjectPool.Instance.ItemObjectAddList(itemObject);
-
                 break;
             }
             else if (slot.scriptableObjectSO == scriptableObjectSO && slot.count + scriptableObjectSO.amount <= scriptableObjectSO.maxStackable)
             {
                 slot.count++;
-                /*slot.itemAmountText.text = slot.count.ToString();*/
                 slot.CountInText();
-
-                itemObject.Deactivate();
-                ObjectPool.Instance.ItemObjectAddList(itemObject);
-
                 return;
             }
             else
