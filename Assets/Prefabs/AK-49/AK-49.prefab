@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7098129330762026853}
   - component: {fileID: 8514235681933036716}
   - component: {fileID: 8522657520059713317}
+  - component: {fileID: -9131418115318065288}
   m_Layer: 0
   m_Name: AK-49
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -530536516, guid: 07166452c6406814294ab52a6b43e1c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -147,3 +148,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.41, y: 0.11}
   m_EdgeRadius: 0
+--- !u!114 &-9131418115318065288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6756007278803832021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592da41722e4ff14cb79c746ead82ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

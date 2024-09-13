@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   name: Pistol
-  prefab: {fileID: 6351680936862629329, guid: 2438199b79630f44681ccb77a6a0f740, type: 3}
+  prefab: {fileID: 0}
   sprite: {fileID: 323032242, guid: db497e5670178b34da753c966da755ca, type: 3}
   amount: 1
   maxStackable: 1
   price: 210
   suitableBullet: {fileID: 11400000, guid: 771aa08410369bb40a7f95d20a9a2407, type: 2}
-  shotCooldown: 0.55
+  shotCooldown: 0.74
+  shotSound: {fileID: 8300000, guid: 141cbafa5ac29d144bc66229c67a3826, type: 3}

@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private AudioClipRefsSo audioClipRefsSo;
+    public static SoundManager Instance { get; private set; }
+    public GameObject playerPos;
+    public AudioSource audioSource;
 
-    void OnEnable()
+    void Start()
     {
-        Quest.OnAudioClipSource += Quest_Complete;
+        Instance = this;
     }
 
-    void OnDisable()
+    public void PlaySound(AudioClip audioClip, Vector3 position = default, float volume = 1f)
     {
-        Quest.OnAudioClipSource -= Quest_Complete;
-    }
-
-    void Quest_Complete(Quest questWindowPos)
-    {
-        PlaySound(audioClipRefsSo.questComplete, Camera.main.transform.position);
-    }
-
-    private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)
-    {
-        AudioSource.PlayClipAtPoint(audioClip, position, volume);
-        /*AudioSource.PlayClipAtPoint(audioClip, position, volume);*/
+        if (position == null)
+        {
+            position = Camera.main.transform.position;
+        }
+        audioSource.clip = audioClip; // Устанавливаем AudioClip
+        audioSource.Play();
     }
 }

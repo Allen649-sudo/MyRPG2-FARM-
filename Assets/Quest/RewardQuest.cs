@@ -10,4 +10,6 @@ public class RewardQuest : ScriptableObject
 
     public int amountMoney;
     public int amountExperience;
+
+    public AudioClip rewardQuestSound;
 }

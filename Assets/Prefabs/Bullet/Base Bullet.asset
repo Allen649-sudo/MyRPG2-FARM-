@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Base Bullet
   m_EditorClassIdentifier: 
   name: Base Bullet
-  prefab: {fileID: 0}
+  prefab: {fileID: 6529500592700024082, guid: dcb56bd51eb437f4db71a8c7e14b4b11, type: 3}
   sprite: {fileID: -1183016626, guid: eca3d62683cdc8847a85955bf1cc38fa, type: 3}
   amount: 1
   maxStackable: 240
   price: 8
-  speed: 10
+  speed: 12
   damage: 16
-  lifetime: 1.5
+  lifetime: 1.8

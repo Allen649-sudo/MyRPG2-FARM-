@@ -29,9 +29,11 @@ public class Collision_With_Item : MonoBehaviour
    // Start is called before the first frame update
     void Start()
     {
-        
-        questManager = objectQuest.GetComponent<QuestManager>();
-        
+        if (objectQuest != null)
+        {
+            questManager = objectQuest.GetComponent<QuestManager>();
+        }
+
         if (firePlayerScript != null)
         {
             firePlayerScript = firePlayer.GetComponent<FirePlayer>();

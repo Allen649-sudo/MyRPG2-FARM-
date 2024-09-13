@@ -87,14 +87,17 @@ public class QuestManager : MonoBehaviour
 
         if (selectedWindowsQuest.Count > 0)
         {
+            List<GameObject> tempQuestWindows = new List<GameObject>();
 
             foreach (GameObject selectedquestWindowVar in selectedWindowsQuest)
             {
                 if (!selectedWindowsQuest.Exists(selectedQuestWindow => selectedQuestWindow == questWindowVar))
                 {
-                    selectedWindowsQuest.Add(questWindowVar);
+                    tempQuestWindows.Add(questWindowVar);
                 }
             }
+
+            selectedWindowsQuest.AddRange(tempQuestWindows);
         }
         else
         {

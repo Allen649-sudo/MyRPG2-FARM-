@@ -16,3 +16,4 @@ MonoBehaviour:
   amountRewardScriptableObjectSO: 2
   amountMoney: 5
   amountExperience: 5
+  rewardQuestSound: {fileID: 8300000, guid: e3ec0b33bf177244086b02317d57b598, type: 3}

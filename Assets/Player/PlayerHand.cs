@@ -20,8 +20,11 @@ public class PlayerHand : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        if (quickslotInventory != null)
+        {
+            quickslotInventoryScript = quickslotInventory.GetComponent<QuickslotInventory>();
+        }
 
-        quickslotInventoryScript = quickslotInventory.GetComponent<QuickslotInventory>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         firePlayer = GetComponent<FirePlayer>();
     }
@@ -30,7 +33,7 @@ public class PlayerHand : MonoBehaviour
     {
         if (scriptableObjectSO is GunSO gun)
         {
-            firePlayer.Shot(gun.suitableBullet.prefab);
+            firePlayer.Shot(gun.suitableBullet.prefab, gun.prefab);
         }
     }
 

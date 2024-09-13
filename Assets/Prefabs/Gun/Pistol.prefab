@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 40177754106803969}
   - component: {fileID: -5841206310407592749}
   - component: {fileID: -6985405928832894354}
+  - component: {fileID: 1889616971874082155}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1140010581, guid: 07166452c6406814294ab52a6b43e1c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -122,7 +123,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.136, y: 0.104}
+    oldSize: {x: 0.152, y: 0.112}
     newSize: {x: 0.17, y: 0.13}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,3 +148,15 @@ MonoBehaviour:
   player: {fileID: 0}
   spawnDistance: 2
   animator: {fileID: 0}
+--- !u!114 &1889616971874082155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6351680936862629329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592da41722e4ff14cb79c746ead82ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

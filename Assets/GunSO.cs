@@ -8,4 +8,6 @@ public class GunSO : ScriptableObjectSO
     [Header("GUN PROPERTIES")]
     public BulletSO suitableBullet;
     public float shotCooldown;
+
+    public AudioClip shotSound;
 }
