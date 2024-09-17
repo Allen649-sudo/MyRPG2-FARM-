@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bb1af674f4fdcd54fb3ac44319e00d70
+guid: c82fc1bcde4c06c428aaff28f3008349
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,22 +123,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Egg_And_Nest_0
+      name: "Sprite-\u0441_0"
       rect:
         serializedVersion: 2
-        x: 34
-        y: 1
-        width: 12
-        height: 9
+        x: 0
+        y: 3
+        width: 180
+        height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 300ab50364fade94ebf74f97dacee33d
-      internalID: 1366485018
+      spriteID: d5a476e8538c33c46b3cf832287cb8ba
+      internalID: 1712290720
       vertices: []
       indices: 
       edges: []
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Egg_And_Nest_0: 1366485018
+      "Sprite-\u0441_0": 1712290720
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
