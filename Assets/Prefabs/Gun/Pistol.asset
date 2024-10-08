@@ -20,4 +20,5 @@ MonoBehaviour:
   price: 210
   suitableBullet: {fileID: 11400000, guid: 771aa08410369bb40a7f95d20a9a2407, type: 2}
   shotCooldown: 0.74
-  shotSound: {fileID: 8300000, guid: 141cbafa5ac29d144bc66229c67a3826, type: 3}
+  shotSound: {fileID: 8300000, guid: d7b751efe4f674648bd2c61569bebd4f, type: 3}
+  damage: 3

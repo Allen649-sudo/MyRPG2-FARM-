@@ -18,16 +18,15 @@ public class PackageSeedDispenseCountScript : MonoBehaviour
         if (packageObjectSO.seedDispenseCount != 0)
         {
             seedDispenseCountItem = packageObjectSO.seedDispenseCount;
-
         }
         packageObjectSO.prefab = this.gameObject;
-
     }
 
     public void DispenseSeeds()
     {
         seedDispenseCountItem--;
         Debug.Log(seedDispenseCountItem);
+        Debug.Log(name);
 
         if (seedDispenseCountItem <= 0)
         {

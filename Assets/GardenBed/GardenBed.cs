@@ -14,13 +14,10 @@ public class GardenBed : MonoBehaviour
     [SerializeField] private Sprite emptySprite;
     PackageObjectSO temporaryScriptableObjectSOPlayerHand;
     PackageObjectSO packageObject;
+    GameObject itemPrefab;
 
     void Start()
     {
-        /*if (scriptableObjectSO is PackageObjectSO packageObjectSO)
-        {
-            packageObject = packageObjectSO;
-        }*/
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -28,23 +25,24 @@ public class GardenBed : MonoBehaviour
     {
         if (start)
         {
-            ScriptableObjectSO scriptableObjectSOPlayerHand = PlayerHand.Instance.scriptableObjectSO;
-            if (scriptableObjectSOPlayerHand is PackageObjectSO temporaryScriptableObjectPlayerHand)
+            itemPrefab = PlayerHand.Instance.itemPrefab;
+            if (itemPrefab.GetComponent<ItemObject>().scriptableObjectSO is PackageObjectSO packageObjectSO)
             {
-                temporaryScriptableObjectSOPlayerHand = temporaryScriptableObjectPlayerHand;
+                temporaryScriptableObjectSOPlayerHand = packageObjectSO;
             }
 
             foreach (PackageObjectSO scriptableObjectSOGarden in scriptableObjectSO)
             {
-                if (temporaryScriptableObjectSOPlayerHand == scriptableObjectSOGarden && growing)
+                if (temporaryScriptableObjectSOPlayerHand != null)
                 {
-                    StartCoroutine(BeginGrowth(temporaryScriptableObjectSOPlayerHand));
-                    scriptableObjectSOPlayerHand.prefab.GetComponent<PackageSeedDispenseCountScript>().DispenseSeeds();
-                    Debug.Log("The seed is planted");
+                    if (temporaryScriptableObjectSOPlayerHand == scriptableObjectSOGarden && growing)
+                    {
+                        StartCoroutine(BeginGrowth(temporaryScriptableObjectSOPlayerHand));
+                        itemPrefab.GetComponent<PackageSeedDispenseCountScript>().DispenseSeeds();
+                        Debug.Log("The seed is planted");
+                    }
                 }
-
             }
-            
         }
         if (ready)
         {
@@ -56,7 +54,6 @@ public class GardenBed : MonoBehaviour
             growing = true;
             start = true;
         }
-
     }
 
     private IEnumerator BeginGrowth(PackageObjectSO scriptableObjectSO)
@@ -64,17 +61,17 @@ public class GardenBed : MonoBehaviour
         growing = false;
         start = false;
 
-        yield return new WaitForSeconds(scriptableObjectSO.timeFirstStage);
-        spriteRenderer.sprite = scriptableObjectSO.spriteFirstStage;
+        yield return new WaitForSeconds(temporaryScriptableObjectSOPlayerHand.timeFirstStage);
+        spriteRenderer.sprite = temporaryScriptableObjectSOPlayerHand.spriteFirstStage;
 
-        yield return new WaitForSeconds(scriptableObjectSO.timeSecondtStage);
-        spriteRenderer.sprite = scriptableObjectSO.spriteSecondtStage;
+        yield return new WaitForSeconds(temporaryScriptableObjectSOPlayerHand.timeSecondtStage);
+        spriteRenderer.sprite = temporaryScriptableObjectSOPlayerHand.spriteSecondtStage;
 
-        yield return new WaitForSeconds(scriptableObjectSO.timeThirdStage);
-        spriteRenderer.sprite = scriptableObjectSO.spriteThirdStage;
+        yield return new WaitForSeconds(temporaryScriptableObjectSOPlayerHand.timeThirdStage);
+        spriteRenderer.sprite = temporaryScriptableObjectSOPlayerHand.spriteThirdStage;
 
-        yield return new WaitForSeconds(scriptableObjectSO.timeFourthStage);
-        spriteRenderer.sprite = scriptableObjectSO.spriteFourthStage;
+        yield return new WaitForSeconds(temporaryScriptableObjectSOPlayerHand.timeFourthStage);
+        spriteRenderer.sprite = temporaryScriptableObjectSOPlayerHand.spriteFourthStage;
 
 
         ready = true;

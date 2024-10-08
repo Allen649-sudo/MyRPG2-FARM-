@@ -10,6 +10,7 @@ public static class Loader
         Home,
         SampleScene,
         SceneLoading,
+        Tawern,
     }
 
     public static Scene targetScene;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3672792675152609633}
   - component: {fileID: 7854014438937500726}
   - component: {fileID: 2223107268895614984}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Bullet 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSO: {fileID: 11400000, guid: 771aa08410369bb40a7f95d20a9a2407, type: 2}
+  playerPos: {fileID: 0}
 --- !u!61 &7854014438937500726
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -115,7 +116,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1409
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

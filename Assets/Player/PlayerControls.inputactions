@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action2",
+                    "name": "MouseClick",
                     "type": "Button",
                     "id": "d5d2d4cb-522e-4f7a-ad0a-c51bb2596988",
                     "expectedControlType": "Button",
@@ -68,11 +68,11 @@
                 {
                     "name": "",
                     "id": "e01ad23e-ef6a-4b69-9851-00b308424ece",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action2",
+                    "action": "MouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

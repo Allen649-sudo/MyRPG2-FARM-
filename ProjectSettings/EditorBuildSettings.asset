@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/SceneLoading.unity
     guid: e73c2ed9f9d5a394c813e5e28864d983
+  - enabled: 1
+    path: Assets/Scene/Tawern.unity
+    guid: 157ed98eef544ce4f9a53be3f6a722a0
   m_configObjects: {}

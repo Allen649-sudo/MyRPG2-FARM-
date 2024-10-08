@@ -10,4 +10,5 @@ public class GunSO : ScriptableObjectSO
     public float shotCooldown;
 
     public AudioClip shotSound;
+    public int damage;
 }

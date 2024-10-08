@@ -16,7 +16,7 @@ public class ItemObject : MonoBehaviour
 
     void Start()
     {
-        scriptableObjectSO.prefab = gameObject;
+        scriptableObjectSO.prefab = this.gameObject;
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
     }

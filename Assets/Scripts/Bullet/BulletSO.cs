@@ -7,7 +7,9 @@ public class BulletSO : ScriptableObjectSO
 {
     [Header("BULLET PROPERTIES")]
     public int speed;
-    public int damage;
     public float lifetime;
+    [Header("FOR ENEMY")]
+    public int damage;
+
 }
 

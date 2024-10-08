@@ -12,14 +12,15 @@ public class ShowShop : MonoBehaviour
 
     void OnEnable()
     {
-        Collision_With_Item.OnPlayerInteract += OnShowShop;
-        Collision_With_Item.OnOpenShop += OnShowClose;
+        InteractWithPlayer.OnInteractWithPlayer += OnShowShop;
+        Collision_With_Item.OnClose += OnCloseShop;
     }
 
     void OnDisable()
     {
-        Collision_With_Item.OnPlayerInteract -= OnShowShop;
-        Collision_With_Item.OnOpenShop -= OnShowClose;
+        InteractWithPlayer.OnInteractWithPlayer -= OnShowShop;
+        Collision_With_Item.OnClose -= OnCloseShop;
+
     }
 
     void Start()
@@ -29,16 +30,31 @@ public class ShowShop : MonoBehaviour
         child.gameObject.SetActive(false);
     }
 
-    void OnTriggerStay2D(Collider2D itemCollider)
+    void OnTriggerStay2D(Collider2D collider)
     {
-        contactWitnPlayer = true;
+        int layer = collider.gameObject.layer;
+
+        if (layer == LayerMask.NameToLayer("Player"))
+        {
+            contactWitnPlayer = true;
+        }
     }
 
-    void OnTriggerExit2D(Collider2D itemCollider)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        contactWitnPlayer = false;
+        int layer = collider.gameObject.layer;
+
+        if (layer == LayerMask.NameToLayer("Player"))
+        {
+            contactWitnPlayer = false;
+            OnCloseShop();
+        }
     }
 
+    void OnCloseShop()
+    {
+        child.gameObject.SetActive(false);
+    }
 
     void OnShowShop()
     {
@@ -47,10 +63,5 @@ public class ShowShop : MonoBehaviour
             child.gameObject.SetActive(true);
             child.SetParent(canvas.transform);
         }
-    }
-
-    void OnShowClose()
-    {
-        child.gameObject.SetActive(false);
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using System;
 
 
 public class ChangeDayAndNight : MonoBehaviour
@@ -10,7 +11,16 @@ public class ChangeDayAndNight : MonoBehaviour
     private bool lightFalls = true; // падает
     private bool lightRises = false;
 
-    private int timeDayChange = 360;
+    private int timeDayChange = 480;
+
+    public static Action OnNightFall;
+    public static Action OnDayComing;
+    private bool hasDayCome = false; // флаг дл€ событи€ дн€
+    private bool hasNightFallen = false;
+
+    private float comingDay = 0.9f;
+    private float comingNight = 0.05f;
+    private float lineBetweenDayAndNight = 0.45f;
 
     void Start()
     {
@@ -27,27 +37,46 @@ public class ChangeDayAndNight : MonoBehaviour
         {
             LightRises();
         }
+        
     }
 
     void LightFalls()
     {
         _globalLight.intensity -= Time.deltaTime / timeDayChange;
-        if (_globalLight.intensity <= 0.1f)
+
+        if (_globalLight.intensity <= comingNight)
         {
-            _globalLight.intensity = 0.1f; // ограничение минимального значени€
+            _globalLight.intensity = comingNight; // ограничение минимального значени€
             lightFalls = false;
             lightRises = true; // начинаем подниматьс€
+            hasDayCome = false; // сброс флага дн€ при переходе в ночь
+        }
+
+        // ¬ызов событи€ при переходе через порог 0.3f, только если оно еще не было вызвано
+        if (_globalLight.intensity < lineBetweenDayAndNight && !hasNightFallen)
+        {
+            OnNightFall?.Invoke();
+            hasNightFallen = true; // устанавливаем флаг, чтобы событие больше не вызывалось
         }
     }
 
     void LightRises()
     {
         _globalLight.intensity += Time.deltaTime / timeDayChange;
-        if (_globalLight.intensity >= 0.9f)
+
+        if (_globalLight.intensity >= comingDay)
         {
-            _globalLight.intensity = 0.9f; // ограничение максимального значени€
+            _globalLight.intensity = comingDay; // ограничение максимального значени€
             lightRises = false;
             lightFalls = true; // начинаем падать
+            hasNightFallen = false;
+        }
+
+        // ¬ызов событи€ при переходе через порог 0.3f, только если оно еще не было вызвано
+        if (_globalLight.intensity > lineBetweenDayAndNight && !hasDayCome)
+        {
+            OnDayComing?.Invoke();
+            hasDayCome = true; // устанавливаем флаг, чтобы событие больше не вызывалось
         }
     }
 }

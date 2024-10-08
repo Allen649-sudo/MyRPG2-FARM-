@@ -12,7 +12,7 @@ public class InventorySlot : MonoBehaviour
     [HideInInspector] public Transform iconGO;
     [HideInInspector] public TextMeshProUGUI itemAmountText;
     [HideInInspector] public DragAndDrop dragItem;
-
+    public GameObject itemPrefab;
 
     void Start()
     {
@@ -21,6 +21,7 @@ public class InventorySlot : MonoBehaviour
         dragItem = transform.GetChild(0).GetComponent<DragAndDrop>(); 
 
         itemAmountText.text = "";
+        itemPrefab = null;
     }
 
     public bool TryInventorySlotHaveitemObject()

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05f04dd85ab86aa4297f9ff1a3d28662, type: 3}
+  m_Name: Mantis
+  m_EditorClassIdentifier: 
+  name: Mantis
+  health: 14
+  minAttack: 1
+  maxAttack: 4
+  hitSound: {fileID: 8300000, guid: fd46abebcfe155347964f8c6e9f86269, type: 3}

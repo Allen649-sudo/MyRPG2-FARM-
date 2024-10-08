@@ -9,22 +9,32 @@ public class PosForLoadPlayer : MonoBehaviour
 
     void OnEnable()
     {
-        Collision_With_Item.OnPlayerInteract += LoadInMainScene;
+        InteractWithPlayer.OnInteractWithPlayer += LoadInMainScene;
     }
 
     void OnDisable()
     {
-        Collision_With_Item.OnPlayerInteract -= LoadInMainScene;
+        InteractWithPlayer.OnInteractWithPlayer -= LoadInMainScene;
     }
 
-    void OnTriggerStay2D(Collider2D itemCollider)
+    void OnTriggerStay2D(Collider2D collider)
     {
-        contactWitnPlayer = true;
+        int layer = collider.gameObject.layer;
+
+        if (layer == LayerMask.NameToLayer("Player"))
+        {
+            contactWitnPlayer = true;
+        }
     }
 
-    void OnTriggerExit2D(Collider2D itemCollider)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        contactWitnPlayer = false;
+        int layer = collider.gameObject.layer;
+
+        if (layer == LayerMask.NameToLayer("Player"))
+        {
+            contactWitnPlayer = false;
+        }
     }
 
     void LoadInMainScene()
@@ -33,7 +43,5 @@ public class PosForLoadPlayer : MonoBehaviour
         {
             Loader.Load(scene);
         }
-
     }
-
 }

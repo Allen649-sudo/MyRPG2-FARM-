@@ -20,13 +20,13 @@ public class QuestManager : MonoBehaviour
     void OnEnable()
     {
         Data_QuestWindow.OnDropQuestAction += ReturnWindowQuestIn_QuestWindowTest;
-        Data_QuestWindow.OnAcceptQuestAction += Test;
+        Data_QuestWindow.OnAcceptQuestAction += UpdateSelectedQuestWindows;
     }
 
     void OnDisable()
     {
         Data_QuestWindow.OnDropQuestAction -= ReturnWindowQuestIn_QuestWindowTest;
-        Data_QuestWindow.OnAcceptQuestAction -= Test;
+        Data_QuestWindow.OnAcceptQuestAction -= UpdateSelectedQuestWindows;
 
     }
 
@@ -42,47 +42,49 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void ActiveQuest(Collider2D colliderObject)
+    public void ActiveQuest(GameObject questCarrier)
     {
         bool isFirstInstanceCreated = false;
-
-        if (colliderObject.gameObject.GetComponent<Quest>() != null)
+        if (questCarrier.GetComponent<Quest>() != null)
         {
-            foreach (GameObject questWindowVar in questWindowTest)
+            if (questCarrier.GetComponent<Quest>().parametersQuest.activeQuest == true && questCarrier.GetComponent<Quest>().parametersQuest.playerAcceptQuest == false)
             {
-                if (!isFirstInstanceCreated)
+                foreach (GameObject questWindowVar in questWindowTest)
                 {
-                    questWindowVar.GetComponent<Data_QuestWindow>().ActiveQuest();
-                    TextMeshProUGUI nameQuest = questWindowVar.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                    TextMeshProUGUI description = questWindowVar.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                    Image conditions = questWindowVar.transform.GetChild(2).GetComponent<Image>();
-                    Image reward = questWindowVar.transform.GetChild(3).GetComponent<Image>();
+                    if (!isFirstInstanceCreated)
+                    {
+                        questWindowVar.GetComponent<Data_QuestWindow>().ActiveQuest();
+                        TextMeshProUGUI nameQuest = questWindowVar.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                        TextMeshProUGUI description = questWindowVar.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                        Image conditions = questWindowVar.transform.GetChild(2).GetComponent<Image>();
+                        Image reward = questWindowVar.transform.GetChild(3).GetComponent<Image>();
 
-                    Quest quest = colliderObject.gameObject.GetComponent<Quest>();
-                    nameQuest.text = quest.parametersQuest.name;
-                    description.text = quest.parametersQuest.description;
-                    conditions.sprite = quest.parametersQuest.conditions;
-                    reward.sprite = quest.parametersQuest.reward;
-                    selected = questWindowVar;
-                    AddedQuestWindow(questWindowVar, colliderObject);
+                        Quest quest = questCarrier.GetComponent<Quest>();
+                        nameQuest.text = quest.parametersQuest.name;
+                        description.text = quest.parametersQuest.description;
+                        conditions.sprite = quest.parametersQuest.conditions;
+                        reward.sprite = quest.parametersQuest.reward;
+                        selected = questWindowVar;
+                        AddedQuestWindow(questWindowVar, questCarrier);
 
 
-                    isFirstInstanceCreated = true;
-                    break;
+                        isFirstInstanceCreated = true;
+                        break;
+                    }
                 }
             }
         }
     }
 
-    void AddedQuestWindow(GameObject questWindowVar, Collider2D colliderObject)
+    void AddedQuestWindow(GameObject questWindowVar, GameObject questCarrier)
     {
-        questWindowVar.GetComponent<Data_QuestWindow>().temporarySelectedParametersQuest = colliderObject.gameObject.GetComponent<Quest>().parametersQuest;
-        colliderObject.gameObject.GetComponent<Quest>().temporaryWindowQuest = questWindowVar;
+        questWindowVar.GetComponent<Data_QuestWindow>().temporarySelectedParametersQuest = questCarrier.GetComponent<Quest>().parametersQuest;
+        questCarrier.GetComponent<Quest>().temporaryWindowQuest = questWindowVar;
 
-        Test(questWindowVar);
+        UpdateSelectedQuestWindows(questWindowVar);
     }
 
-    void Test(GameObject questWindowVar)
+    void UpdateSelectedQuestWindows(GameObject questWindowVar)
     {
 
         if (selectedWindowsQuest.Count > 0)

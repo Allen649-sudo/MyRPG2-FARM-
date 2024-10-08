@@ -21,5 +21,25 @@ public class SoundManager : MonoBehaviour
         }
         audioSource.clip = audioClip; // Устанавливаем AudioClip
         audioSource.Play();
+        audioSource.volume = volume;
+
+    }
+
+    public void FadeSound(AudioClip audioClip, Vector3 position = default, float volume = 1f)
+    {
+        StartCoroutine(FadeOut(audioClip, volume));
+    }
+
+    private IEnumerator FadeOut(AudioClip audioClip, float volume = 1f)
+    {
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= volume * Time.deltaTime;
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = volume;
     }
 }

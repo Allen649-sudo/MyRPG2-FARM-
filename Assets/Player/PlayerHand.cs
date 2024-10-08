@@ -16,6 +16,7 @@ public class PlayerHand : MonoBehaviour
 
     [SerializeField] private SpriteRenderer spriteRenderer;
     public FirePlayer firePlayer;
+    public GameObject itemPrefab;
 
     void Awake()
     {
@@ -46,6 +47,7 @@ public class PlayerHand : MonoBehaviour
         if (activeSlot != null)
         {
             scriptableObjectSO = activeSlot.scriptableObjectSO;
+            itemPrefab = activeSlot.itemPrefab;
         }
         if (spriteRenderer.sprite != null && activeSlot != null)
         {

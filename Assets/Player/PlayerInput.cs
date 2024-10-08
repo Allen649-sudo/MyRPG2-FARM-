@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 using System;
 
@@ -19,14 +20,13 @@ public class PlayerInput : MonoBehaviour
     public GameObject crosschair;
     public Animator animator;
 
+    public AudioClip soundFootsteps;
 
     void Awake()
     {
         transform.position = startPos.transform.position;
-        playerControls = new PlayerControls();
-        playerControls.Player.Enable();
+        
         rb = GetComponent<Rigidbody2D>();
-
     }
 
     void Start()
@@ -34,17 +34,33 @@ public class PlayerInput : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        playerControls = new PlayerControls();
+        playerControls.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Player.Disable();
+    }
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        playerControls.Player.MouseClick.performed += OnCLickPlayer;
+        moveDirection = playerControls.Player.Move.ReadValue<Vector2>();
+
+        Move(moveDirection);
+        Aim();
+        Animate();
+    }
+
+    void OnCLickPlayer(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
         {
             PlayerHand.Instance.Shooting();
         }
-        moveDirection = playerControls.Player.Move.ReadValue<Vector2>();
-        Move(moveDirection);
-
-        Aim();
-        Animate();
     }
 
     void Move(Vector2 moveDirection)
@@ -57,13 +73,13 @@ public class PlayerInput : MonoBehaviour
 
         if (moveDirection.x != 0 || moveDirection.y != 0)
         {
+            /*SoundManager.Instance.PlaySound(soundFootsteps);*/
             lastMoveDirection = moveDirection;
         }
     }
 
     void Aim()
     {
-
         Vector3 mousePos = Input.mousePosition;
 
         mousePos.z = Camera.main.nearClipPlane; 
@@ -82,5 +98,4 @@ public class PlayerInput : MonoBehaviour
         animator.SetFloat("AnimLastMoveX", lastMoveDirection.x);
         animator.SetFloat("AnimLastMoveY", lastMoveDirection.y);
     }
-
 }

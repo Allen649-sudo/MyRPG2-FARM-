@@ -8,6 +8,10 @@ public class BulletMovement : MonoBehaviour
     bool movement = false;
     private Collider2D collider2D;
     public BulletSO bulletSO;
+    LayerMask playerLayer = 6;
+    int bulletDamage = 90;
+
+    public GameObject playerPos;
 
     void Start()
     {
@@ -29,7 +33,7 @@ public class BulletMovement : MonoBehaviour
         if (layer == LayerMask.NameToLayer("Enemy"))
         {
             Vector3 posSpawnBlood = transform.position;
-            collider.gameObject.GetComponent<GettingWound>().GetInjury(posSpawnBlood);
+            collider.gameObject.GetComponent<GettingWoundAndDeath>().GetInjury(posSpawnBlood, bulletDamage, playerPos);
             ReturnInPool();
         }
     }
@@ -51,12 +55,12 @@ public class BulletMovement : MonoBehaviour
 
     public void IgnorePlayer()
     {
-        Physics2D.IgnoreLayerCollision(gameObject.layer, 0, true);
+         Physics2D.IgnoreLayerCollision(gameObject.layer, playerLayer, true);
     }
 
     public void EnableTrigger()
     {
-        Physics2D.IgnoreLayerCollision(gameObject.layer, 0, false);
+         Physics2D.IgnoreLayerCollision(gameObject.layer, playerLayer, false);
     }
 
     private void ReturnInPool()
@@ -77,5 +81,10 @@ public class BulletMovement : MonoBehaviour
 
         EnableTrigger();
         Deactive();
+    }
+
+    public void ReceivingAmountDamage(int gunDamage)
+    {
+        bulletDamage = gunDamage;
     }
 }

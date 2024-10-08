@@ -10,12 +10,12 @@ public class Chest : MonoBehaviour
 
     void OnEnable()
     {
-        Collision_With_Item.OnOpenShop += OnChestClose;
+        Collision_With_Item.OnClose += OnChestClose;
     }
 
     void OnDisable()
     {
-        Collision_With_Item.OnOpenShop -= OnChestClose;
+        Collision_With_Item.OnClose -= OnChestClose;
     }
 
     void Start()

@@ -21,7 +21,6 @@ public class Data_QuestWindow : MonoBehaviour
     public static Action<ParametersQuest, GameObject> OnDropQuestAction;
     public static Action<GameObject> OnAcceptQuestAction;
 
-
     void Start()
     {
         Transform parentTransform = transform.parent;
@@ -32,9 +31,7 @@ public class Data_QuestWindow : MonoBehaviour
 
         animationWindowQuest = GetComponent<AnimationWindowQuest>();
         disablingButton = GetComponent<DisablingButton>();
-
     }
-
 
     public void OnAcceptQuest()
     {
@@ -56,7 +53,6 @@ public class Data_QuestWindow : MonoBehaviour
 
         rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
         rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-
     }
 
     public void FalsePlayerAcceptQuest()

@@ -6,23 +6,36 @@ using KnightAdventure.Utils;
 
 public class MovementEnemy : MonoBehaviour
 {
-    [SerializeField] private State startingState;
     [SerializeField] private float distanceMin = 3f;
     [SerializeField] private float distanceMax = 7f;
-    [SerializeField] private float timerMax = 2f;
+    [SerializeField] private float timerMin = 1f;
+    [SerializeField] private float timerMax = 5f;
+
+    private State state;
+    [SerializeField] private State startingState;
 
     private UnityEngine.AI.NavMeshAgent navMeshAgent;
-    private State state;
+    CreaturesAnimation creaturesAnimation;
+    DataCreatures dataCreatures;
+    public CreaturesShooting creaturesShooting;
     private float roamingTime;
+    [SerializeField] private float stoppingDistance = 2.1f;
+
     private Vector3 roamingPos;
     private Vector3 startingPosition;
 
-    public Animator animator;
+    private Vector2 lastMoveDirection;
+    private Vector2 lastAttack;
+
+    private GameObject playerObj;
+    GameObject player;
+    bool tryWasShot = true;
 
     private enum State
     {
         Idle,
-        Roaming
+        Roaming,
+        Chase,
     }
 
     void Awake()
@@ -36,18 +49,18 @@ public class MovementEnemy : MonoBehaviour
 
     private void Start()
     {
+        creaturesAnimation = GetComponent<CreaturesAnimation>();
+        dataCreatures = GetComponent<DataCreatures>();
         startingPosition = transform.position;
-        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        roamingTime -= Time.deltaTime; // Уменьшаем время на каждом кадре
-
+        roamingTime -= Time.deltaTime;
+        Animate();
         switch (state)
         {
             case State.Idle:
-                animator.SetBool("Idle", true);
                 if (roamingTime < 0)
                 {
                     StartRoaming();
@@ -55,30 +68,67 @@ public class MovementEnemy : MonoBehaviour
                 break;
 
             case State.Roaming:
-                animator.SetBool("Idle", false);
-                if (navMeshAgent.remainingDistance < 0.1f) // Проверяем, достигли ли мы позиции
+                if (navMeshAgent.remainingDistance < 0.1f) 
                 {
-                    state = State.Idle; // Если дошли до места, переключаем назад на Idle
-                    roamingTime = timerMax; // Сброс времени для следующего блуждания
+                    state = State.Idle;
+                    navMeshAgent.speed = 1f;
+
+                    roamingTime = Random.Range(timerMin, timerMax); 
                 }
                 break;
+
+            case State.Chase:
+                if (Vector3.Distance(transform.position, playerObj.transform.position) > stoppingDistance)
+                {
+                    creaturesAnimation.AnimDeactiveAttack();
+
+                    navMeshAgent.isStopped = false;
+                    navMeshAgent.speed = 2.4f;
+                    SettingPath(playerObj.transform.position, transform.position, playerObj.transform.position);
+                }
+                else
+                {
+                    creaturesAnimation.AnimAttack();
+                    navMeshAgent.isStopped = true;
+                    
+                    if (dataCreatures.creaturesSO.shooter == true && creaturesShooting != null)
+                    {
+                        if (tryWasShot)
+                        {
+
+                            creaturesShooting.GetComponent<CreaturesShooting>().SavingPlayerPos(playerObj);
+                            tryWasShot = false;
+                        }
+                    }
+                }
+                break;
+
         }
     }
 
-    // Метод для начала блуждания
     private void StartRoaming()
     {
         Roaming();
-        state = State.Roaming; // Переключаем состояние
+        state = State.Roaming; 
+    }
+
+    public void ChasePlayer(GameObject playerObject)
+    {
+        state = State.Chase;
+        playerObj = playerObject;
     }
 
     private void Roaming()
     {
         startingPosition = transform.position;
         roamingPos = GetRoamingPosition();
-        ChangeFacingDirection(startingPosition, roamingPos);
-        navMeshAgent.SetDestination(roamingPos);
-        roamingTime = timerMax; // Устанавливаем таймер для следующего блуждания
+        roamingTime = timerMax;
+        SettingPath(roamingPos, startingPosition, roamingPos);
+    }
+
+    void SettingPath(Vector3 patn, Vector3 sourcePosition, Vector3 targetPosition)
+    {
+        navMeshAgent.SetDestination(patn);
     }
 
     private Vector3 GetRoamingPosition()
@@ -86,21 +136,20 @@ public class MovementEnemy : MonoBehaviour
         return startingPosition + KnightUtils.GetRandomDir() * UnityEngine.Random.Range(distanceMin, distanceMax);
     }
 
-    private void Animate()
+    void Animate()
     {
-        animator.SetFloat("Horizontal", roamingPos.x);
-        animator.SetFloat("Vertical", roamingPos.y);
-    }
+        Vector3 currentPosition = transform.position;
 
-    private void ChangeFacingDirection(Vector3 sourcePosition, Vector3 targetPosition)
-    {
-        if (sourcePosition.x > targetPosition.x)
+        Vector3 moveDirection = currentPosition - roamingPos;
+        moveDirection = navMeshAgent.velocity;
+
+        roamingPos = currentPosition;
+        if (moveDirection.x != 0 || moveDirection.y != 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            lastMoveDirection = moveDirection;
+            lastAttack = moveDirection;
         }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, -180, 0);
-        }
+
+        creaturesAnimation.Animation(moveDirection, lastMoveDirection, lastAttack);
     }
 }

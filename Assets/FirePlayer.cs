@@ -39,10 +39,11 @@ public class FirePlayer : MonoBehaviour
                 if (permissionShoot)
                 {
                     bullet = bulletPrefab;
-
                     Quaternion currentRotation = transform.rotation;
-                    BulletPool.Instance.ActivateBullet(bullet, transform, currentRotation);
-                    SoundManager.Instance.PlaySound(gunPrefabScriptableObjectSO.shotSound);
+                    bullet.GetComponent<BulletMovement>().playerPos = transform.parent.gameObject;
+
+                    BulletPool.Instance.ActivateBullet(bullet, gunPrefabScriptableObjectSO.damage, transform, currentRotation);
+                    SoundManager.Instance.PlaySound(gunPrefabScriptableObjectSO.shotSound, default, 0.5f);
 
                     rechargeTime = scriptableObjectShootCooldown;
                     permissionShoot = false;

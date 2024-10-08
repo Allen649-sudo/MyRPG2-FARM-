@@ -8,4 +8,6 @@ public class DataPlayer : MonoBehaviour
     public int levelPlayer = 1;
     public int experience;
 
+    public ParticleSystem bloodParticleSystem;
+    public AudioClip hitSound;
 }

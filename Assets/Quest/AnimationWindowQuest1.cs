@@ -26,7 +26,6 @@ public class AnimationWindowQuest : MonoBehaviour
 
     public void QuestComplete()
     {
-        /*animator.SetBool("QuestComplete", true);*/
         questComplete = true;
         StartCoroutine(QuestCompleteCoroutine());
     }
@@ -38,8 +37,6 @@ public class AnimationWindowQuest : MonoBehaviour
 
     public void AcceptQuest()
     {
-        /*disablingButton.DisablingAndEnablingButton();*/
-
         animator.SetBool("AcceptQuest", true);
     }
 
@@ -51,7 +48,6 @@ public class AnimationWindowQuest : MonoBehaviour
             {
                 data_QuestWindow.ActiveQuest();
                 animator.SetBool("AcceptQuest", false);
-
             }
             if(!collision_With_ItemScript.interactOutsideCollider)
             {
@@ -77,7 +73,6 @@ public class AnimationWindowQuest : MonoBehaviour
         data_QuestWindow.InactiveQuest();
     }
 
-
     void QuestComplete_Idle()
     {
         if (data_QuestWindow.temporarySelectedParametersQuest.activeQuest == false)
@@ -89,7 +84,5 @@ public class AnimationWindowQuest : MonoBehaviour
             data_QuestWindow.ActiveQuest();
         }
     }
-
-
 }
 

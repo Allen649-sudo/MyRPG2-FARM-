@@ -68,12 +68,13 @@ public class InventoryPanel : MonoBehaviour
         dragAndDrop.inventorySlot.iconGO.GetComponent<Image>().sprite = Resources.Load<Sprite>("Empty");
     }
 
-    public void AddItem(ScriptableObjectSO scriptableObjectSO, ItemObject itemObject, Collider2D itemCollider)
+    public void AddItem(ScriptableObjectSO scriptableObjectSO, ItemObject itemObject, Collider2D itemCollider, GameObject prefabItem)
     {
         foreach (InventorySlot slot in suitableSlots)
         {
             if (slot.scriptableObjectSO == null)
             {
+                slot.itemPrefab = prefabItem;
                 slot.scriptableObjectSO = scriptableObjectSO;
                 slot.iconGO.GetComponent<Image>().sprite = scriptableObjectSO.sprite;
                 slot.count++;

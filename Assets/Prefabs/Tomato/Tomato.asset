@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Tomato
   prefab: {fileID: 0}
-  sprite: {fileID: 21300000, guid: 57eca5e61ad73a04cabed89c56c0c60b, type: 2}
+  sprite: {fileID: -1834896797, guid: 22bdc6dabe2112240bce96943b7e2c95, type: 3}
   amount: 1
-  maxStackable: 4
+  maxStackable: 64
   price: 15

@@ -20,7 +20,7 @@ public class BulletPool : MonoBehaviour
         listBullet.Add(bullet);
     }
 
-    public void ActivateBullet(GameObject bulletSO, Transform transform, Quaternion rotation = default)
+    public void ActivateBullet(GameObject bulletSO, int bulletDamage, Transform transform, Quaternion rotation = default)
     {
         bool foundInactive = false;
         foreach (GameObject bulletåVar in listBullet)
@@ -29,6 +29,7 @@ public class BulletPool : MonoBehaviour
             {
                 foundInactive = true;
                 bulletåVar.GetComponent<BulletMovement>().Active();
+                bulletåVar.GetComponent<BulletMovement>().ReceivingAmountDamage(bulletDamage);
                 Shot(bulletåVar, transform, rotation);
                 break;
             }
@@ -37,6 +38,7 @@ public class BulletPool : MonoBehaviour
         if (!foundInactive)
         {
             GameObject bullet = Instantiate(bulletSO, transform.position, rotation);
+            bullet.GetComponent<BulletMovement>().ReceivingAmountDamage(bulletDamage);
             BulletAddList(bullet);
             Shot(bullet, transform, rotation);
         }
@@ -49,6 +51,5 @@ public class BulletPool : MonoBehaviour
         bullet.transform.rotation = rotation;
         bullet.GetComponent<BulletMovement>().Shot();
         bullet.GetComponent<BulletMovement>().DeactiveBullet();
-
     }
 }
