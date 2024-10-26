@@ -75,13 +75,39 @@ public class DialogueManager : MonoBehaviour
             }
 
             dialogueText.text = nextLine;
-            DisplayChoices();
+
+            // Скрываем предыдущие варианты выбора
+            HideChoices();
+
+            // Сохраним состояние текущих выборов
+            List<Ink.Runtime.Choice> currentChoices = currentStory.currentChoices;
+
+            if (currentChoices.Count == 0)
+            {
+                // Если нет выборов, разрешаем продолжать при нажатии Enter
+                continueSentence = true;
+            }
+            else
+            {
+                continueSentence = false;
+                DisplayChoices();
+            }
         }
         else
         {
             StartCoroutine(ExitDialogueMode());
         }
     }
+
+    private void HideChoices()
+    {
+        // Скрываем все варианты выбора
+        foreach (var choice in choices)
+        {
+            choice.SetActive(false);
+        }
+    }
+
 
     private void DisplayChoices()
     {
@@ -124,13 +150,13 @@ public class DialogueManager : MonoBehaviour
             RestartDialogue();
             Debug.Log("Restart");
         }
-        else if(chosenChoice.text == "Хорошо, я выполню твое желание")
+        else if (chosenChoice.text == "Хорошо, я выполню твое желание")
         {
             questManager.GetComponent<QuestManager>().ActiveQuest(currentInterlocutor);
             currentStory.ChooseChoiceIndex(choiceIndex);
             ContinueStory();
         }
-        else 
+        else
         {
             currentStory.ChooseChoiceIndex(choiceIndex);
             ContinueStory();
@@ -141,5 +167,27 @@ public class DialogueManager : MonoBehaviour
     {
         currentStory = new Story(storyText);
         ContinueStory();
+    }
+
+    // Обновленный метод для обработки нажатия Enter
+    private void Update()
+    {
+        if (dialogueIsPlaying && Input.GetKeyDown(KeyCode.Return))
+        {
+            if (continueSentence)
+            {
+                // Если продолжаем предложение, просто продолжаем историю
+                ContinueStory();
+            }
+            else
+            {
+                // Обработка выбора, если выбор доступен
+                if (currentStory.currentChoices.Count > 0)
+                {
+                    // Выбор активного варианта
+                    MakeChoice(0);
+                }
+            }
+        }
     }
 }

@@ -8,14 +8,14 @@ using System;
 public class ChangeDayAndNight : MonoBehaviour
 {
     public Light2D _globalLight;
-    private bool lightFalls = true; // падает
+    private bool lightFalls = true; 
     private bool lightRises = false;
 
-    private int timeDayChange = 480;
+    private int timeDayChange = 540;
 
     public static Action OnNightFall;
     public static Action OnDayComing;
-    private bool hasDayCome = false; // флаг для события дня
+    private bool hasDayCome = false;
     private bool hasNightFallen = false;
 
     private float comingDay = 0.9f;
@@ -46,17 +46,16 @@ public class ChangeDayAndNight : MonoBehaviour
 
         if (_globalLight.intensity <= comingNight)
         {
-            _globalLight.intensity = comingNight; // ограничение минимального значения
+            _globalLight.intensity = comingNight; 
             lightFalls = false;
-            lightRises = true; // начинаем подниматься
-            hasDayCome = false; // сброс флага дня при переходе в ночь
+            lightRises = true;
+            hasDayCome = false; 
         }
 
-        // Вызов события при переходе через порог 0.3f, только если оно еще не было вызвано
         if (_globalLight.intensity < lineBetweenDayAndNight && !hasNightFallen)
         {
             OnNightFall?.Invoke();
-            hasNightFallen = true; // устанавливаем флаг, чтобы событие больше не вызывалось
+            hasNightFallen = true; 
         }
     }
 
@@ -66,17 +65,16 @@ public class ChangeDayAndNight : MonoBehaviour
 
         if (_globalLight.intensity >= comingDay)
         {
-            _globalLight.intensity = comingDay; // ограничение максимального значения
+            _globalLight.intensity = comingDay; 
             lightRises = false;
-            lightFalls = true; // начинаем падать
+            lightFalls = true; 
             hasNightFallen = false;
         }
 
-        // Вызов события при переходе через порог 0.3f, только если оно еще не было вызвано
         if (_globalLight.intensity > lineBetweenDayAndNight && !hasDayCome)
         {
             OnDayComing?.Invoke();
-            hasDayCome = true; // устанавливаем флаг, чтобы событие больше не вызывалось
+            hasDayCome = true; 
         }
     }
 }

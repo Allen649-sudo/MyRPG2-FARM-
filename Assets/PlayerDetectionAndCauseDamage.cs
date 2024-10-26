@@ -10,6 +10,7 @@ public class PlayerDetectionAndCauseDamage : MonoBehaviour
     MovementEnemy movementEnemy;
     private GameObject playerObj;
     private bool playerClose;
+    [SerializeField] private bool isAttackEnabled = true;
 
     void Start()
     {
@@ -20,21 +21,25 @@ public class PlayerDetectionAndCauseDamage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         int layer = collider.gameObject.layer;
-
-        if (layer == LayerMask.NameToLayer("Player"))
+        if (isAttackEnabled)
         {
-            playerObj = collider.gameObject;
-            playerClose = true;
+            if (layer == LayerMask.NameToLayer("Player"))
+            {
+                playerObj = collider.gameObject;
+                playerClose = true;
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collider)
     {
         int layer = collider.gameObject.layer;
-
-        if (layer == LayerMask.NameToLayer("Player"))
+        if (isAttackEnabled)
         {
-            playerClose = false;
+            if (layer == LayerMask.NameToLayer("Player"))
+            {
+                playerClose = false;
+            }
         }
     }
 

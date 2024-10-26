@@ -12,4 +12,5 @@ public class CreaturesSO : ScriptableObject
 
     public AudioClip hitSound;
     public bool shooter;
+    public bool tryBurnWhenDay = true;
 }

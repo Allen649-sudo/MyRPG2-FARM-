@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class DataCreatures : MonoBehaviour
 {
+    public CreaturesSO creaturesSO;
+
     HealthBarCreatures healthBarCreatures;
 
-    public CreaturesSO creaturesSO;
     public ParticleSystem bloodParticleSystem;
     public ParticleSystem spawnParticleSystem;
     public ParticleSystem deathParticleSystem;
@@ -22,9 +23,10 @@ public class DataCreatures : MonoBehaviour
         combustionParticleSystem.gameObject.SetActive(false);
     }
 
-    public void Active()
+    public void Active(Vector3 newPosition)
     {
         gameObject.SetActive(true);
+        transform.position = newPosition;
         healthBarCreatures.RestartHelth();
         DeactiveCombustion();
         spawnParticleSystem.Play();

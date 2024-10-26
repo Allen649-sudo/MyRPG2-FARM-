@@ -26,7 +26,7 @@ public class CreaturesPool : MonoBehaviour
             {
 
                 foundInactive = true;
-                creaturesVar.GetComponent<DataCreatures>().Active();
+                creaturesVar.GetComponent<DataCreatures>().Active(position);
                 break;
             }
         }

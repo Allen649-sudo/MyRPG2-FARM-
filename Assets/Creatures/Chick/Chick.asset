@@ -18,3 +18,4 @@ MonoBehaviour:
   maxAttack: 7
   hitSound: {fileID: 8300000, guid: fd46abebcfe155347964f8c6e9f86269, type: 3}
   shooter: 1
+  tryBurnWhenDay: 0

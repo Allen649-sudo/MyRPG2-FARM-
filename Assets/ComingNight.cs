@@ -12,13 +12,18 @@ public class ComingNight : MonoBehaviour
 
     public static Action OnCombustionCreatures;
 
-    public AudioClip[] soundClips;
+    public AudioClip[] soundClipsDay;
+    public AudioClip[] soundClipsNight;
 
-    private List<Vector3> areaSizes = new List<Vector3>(); 
+    private List<Vector3> areaSizes = new List<Vector3>();
     private List<Vector3> areaCenters = new List<Vector3>();
 
     [SerializeField] private int minAmountMonster = 5;
     [SerializeField] private int maxAmountMonster = 12;
+
+    private bool tryFallNight;
+    private bool monstersSpawned; // Флаг для отслеживания статуса создания монстров
+    private bool cricketsAppearedSpawned; // Флаг для отслеживания статуса создания кричащих существ
 
     void Start()
     {
@@ -29,6 +34,12 @@ public class ComingNight : MonoBehaviour
             var renderer = area.GetComponent<Renderer>();
             areaSizes.Add(renderer.bounds.size);
             areaCenters.Add(renderer.bounds.center);
+        }
+
+        // Проигрываем звуки дня в начале
+        for (int i = 0; i < soundClipsDay.Length; i++)
+        {
+            AudioManager.Instance.PlaySound(soundClipsDay[i], default, 1f, true);
         }
     }
 
@@ -46,16 +57,34 @@ public class ComingNight : MonoBehaviour
 
     void OnNightFall()
     {
-        AppearanceCreatures();
-        CricketsAppeared();
-        Unmute();
+        if (!monstersSpawned)
+        {
+            tryFallNight = true;
+            AppearanceCreatures();
+            if (!cricketsAppearedSpawned)
+            {
+                CricketsAppeared();
+                cricketsAppearedSpawned = true;
+            }
+            HandleAuditoryFeedback(); // Выносим управление звуками в отдельный метод
+            monstersSpawned = true;
+        }
     }
 
     void OnDayComing()
     {
+        tryFallNight = false;
         OnCombustionCreatures?.Invoke();
         cricketsAppeared.FadingParticleSystem();
-        Mute();
+        HandleAuditoryFeedback(); // Выносим управление звуками в отдельный метод
+        monstersSpawned = false;
+        cricketsAppearedSpawned = false;
+    }
+
+    private void HandleAuditoryFeedback()
+    {
+        Mute();   
+        Unmute();
     }
 
     private void CricketsAppeared()
@@ -66,8 +95,7 @@ public class ComingNight : MonoBehaviour
     private void AppearanceCreatures()
     {
         int amountMonster = UnityEngine.Random.Range(minAmountMonster, maxAmountMonster);
-
-        for (int i = 0; i <= amountMonster; i++)
+        for (int i = 0; i < amountMonster; i++)
         {
             if (creaturesPool != null)
             {
@@ -79,33 +107,48 @@ public class ComingNight : MonoBehaviour
     public Vector3 GetRandomPosition()
     {
         int randomIndex = UnityEngine.Random.Range(0, areaSizes.Count);
-
         Vector3 areaSize = areaSizes[randomIndex];
         Vector3 areaCenter = areaCenters[randomIndex];
 
-        Vector3 randomPosition = new Vector3(
+        return new Vector3(
             UnityEngine.Random.Range(areaCenter.x - areaSize.x / 2, areaCenter.x + areaSize.x / 2),
             UnityEngine.Random.Range(areaCenter.y - areaSize.y / 2, areaCenter.y + areaSize.y / 2),
-            areaCenter.z
-        );
-
-        return randomPosition;
+            areaCenter.z);
     }
 
     private void Unmute()
     {
-        for (int i = 0; i < soundClips.Length; i++)
+        if (tryFallNight)
         {
-            SoundManager.Instance.PlaySound(soundClips[i]);
+            for (int i = 0; i < soundClipsNight.Length; i++)
+            {
+                AudioManager.Instance.PlaySound(soundClipsNight[i], default, 1f, true);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < soundClipsDay.Length; i++)
+            {
+                AudioManager.Instance.PlaySound(soundClipsDay[i], default, 1f, true);
+            }
         }
     }
 
     private void Mute()
     {
-        for (int i = 0; i < soundClips.Length; i++)
+        if (!tryFallNight)
         {
-            SoundManager.Instance.FadeSound(soundClips[i]);
+            for (int i = 0; i < soundClipsNight.Length; i++)
+            {
+                AudioManager.Instance.FadeSound(soundClipsNight[i]);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < soundClipsDay.Length; i++)
+            {
+                AudioManager.Instance.FadeSound(soundClipsDay[i]);
+            }
         }
     }
-
 }

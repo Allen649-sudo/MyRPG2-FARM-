@@ -43,7 +43,7 @@ public class FirePlayer : MonoBehaviour
                     bullet.GetComponent<BulletMovement>().playerPos = transform.parent.gameObject;
 
                     BulletPool.Instance.ActivateBullet(bullet, gunPrefabScriptableObjectSO.damage, transform, currentRotation);
-                    SoundManager.Instance.PlaySound(gunPrefabScriptableObjectSO.shotSound, default, 0.5f);
+                    AudioManager.Instance.PlaySound(gunPrefabScriptableObjectSO.shotSound, default, 0.4f);
 
                     rechargeTime = scriptableObjectShootCooldown;
                     permissionShoot = false;

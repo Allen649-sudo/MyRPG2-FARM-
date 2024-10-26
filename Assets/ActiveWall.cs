@@ -5,19 +5,15 @@ using UnityEngine;
 public class ActiveWall : MonoBehaviour
 {
 
-   /* void Start()
+    void OnCollisionEnter2D(Collision2D collider)
     {
-        gameObject.SetActive(false);
-
-    }*/
-    public void TryActiveWall()
-    {
-        Debug.Log("sfsf");
+        Debug.Log("True");
         gameObject.SetActive(true);
     }
 
-    public void FalseActiveWall()
+    void OnCollisionExit2D(Collision2D collider)
     {
+        Debug.Log("False");
         gameObject.SetActive(false);
     }
 }

@@ -10,4 +10,6 @@ public class DataPlayer : MonoBehaviour
 
     public ParticleSystem bloodParticleSystem;
     public AudioClip hitSound;
+
+    public AudioClip soundFootsteps;
 }

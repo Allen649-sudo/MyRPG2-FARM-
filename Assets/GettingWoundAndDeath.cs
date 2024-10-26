@@ -13,7 +13,7 @@ public class GettingWoundAndDeath : MonoBehaviour
     public Color damagedColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
 
     private float combustionInterval = 2f;
-    private int burningDamage = 7;
+    private int burningDamage = 2;
 
     void OnEnable()
     {
@@ -31,11 +31,8 @@ public class GettingWoundAndDeath : MonoBehaviour
         playerDetectionAndCauseDamage = GetComponent<PlayerDetectionAndCauseDamage>();
         healthBarCreatures = GetComponent<HealthBarCreatures>();
 
-        audioSource = gameObject.AddComponent<AudioSource>();
-
         bloodParticleSystem = dataCreatures.bloodParticleSystem;
     }
-    private AudioSource audioSource;
 
     public void GetInjury(Vector3 posSpawnBlood, int amountDamageDealt, GameObject playerObj = null)
     {
@@ -47,11 +44,9 @@ public class GettingWoundAndDeath : MonoBehaviour
         {
             playerDetectionAndCauseDamage.TryPlayerTransform(playerObj);
         }
-
         if (dataCreatures.creaturesSO.hitSound != null)
         {
-            audioSource.clip = dataCreatures.creaturesSO.hitSound;
-            audioSource.Play();
+            AudioManager.Instance.PlaySound(dataCreatures.creaturesSO.hitSound, default, 0.8f);
         }
     }
 
@@ -83,8 +78,11 @@ public class GettingWoundAndDeath : MonoBehaviour
 
     public void Combustion()
     {
-        dataCreatures.Combustion();
-        StartCoroutine(StartCombustion());
+        if (dataCreatures.creaturesSO.tryBurnWhenDay)
+        {
+            dataCreatures.Combustion();
+            StartCoroutine(StartCombustion());
+        }
     }
 
     IEnumerator StartCombustion()

@@ -20,8 +20,6 @@ public class PlayerInput : MonoBehaviour
     public GameObject crosschair;
     public Animator animator;
 
-    public AudioClip soundFootsteps;
-
     void Awake()
     {
         transform.position = startPos.transform.position;
@@ -73,7 +71,6 @@ public class PlayerInput : MonoBehaviour
 
         if (moveDirection.x != 0 || moveDirection.y != 0)
         {
-            /*SoundManager.Instance.PlaySound(soundFootsteps);*/
             lastMoveDirection = moveDirection;
         }
     }

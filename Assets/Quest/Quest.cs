@@ -76,7 +76,7 @@ public class Quest : MonoBehaviour
 
     void TriggerEventCompleteQuest()
     {
-        SoundManager.Instance.PlaySound(parametersQuest.rewardQuest.rewardQuestSound);
+        AudioManager.Instance.PlaySound(parametersQuest.rewardQuest.rewardQuestSound);
         OnGiveReward?.Invoke(parametersQuest.rewardQuest, this.gameObject.transform);
     }
 
